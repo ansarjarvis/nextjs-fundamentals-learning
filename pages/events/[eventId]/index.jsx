@@ -1,4 +1,4 @@
-import { getEventById, getAllEvents } from "../../../helpers/api-utils";
+import { getEventById, getFeaturedEvents } from "../../../helpers/api-utils";
 import EventSummary from "@/components/event-detail/event-summary";
 import EventContent from "@/components/event-detail/event-content";
 import EventLogistics from "@/components/event-detail/event-logistics";
@@ -9,7 +9,11 @@ const EventDetailPage = (props) => {
   // let eventId = router.query.eventId;
   // let event = getEventById(eventId);
   if (!event) {
-    return <p>something went wrong</p>;
+    return (
+      <div className="center">
+        <p>loading...</p>
+      </div>
+    );
   }
   return (
     <>
@@ -34,15 +38,16 @@ export let getStaticProps = async (context) => {
     props: {
       event: foundEvent,
     },
+    revalidate: 30,
   };
 };
 
 export let getStaticPaths = async () => {
-  let events = await getAllEvents();
+  let events = await getFeaturedEvents();
   let paths = events.map((event) => ({ params: { eventId: event.id } }));
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
