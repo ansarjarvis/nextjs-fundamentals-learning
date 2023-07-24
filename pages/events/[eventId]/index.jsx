@@ -1,7 +1,8 @@
 import { getEventById, getFeaturedEvents } from "../../../helpers/api-utils";
-import EventSummary from "@/components/event-detail/event-summary";
-import EventContent from "@/components/event-detail/event-content";
-import EventLogistics from "@/components/event-detail/event-logistics";
+import EventSummary from "@/components/event-detail/EventSummary";
+import EventContent from "@/components/event-detail/EventContent";
+import EventLogistics from "@/components/event-detail/EventLogistics";
+import Comments from "@/components/inputs/Comments";
 
 const EventDetailPage = (props) => {
   let { event } = props;
@@ -27,6 +28,7 @@ const EventDetailPage = (props) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };
